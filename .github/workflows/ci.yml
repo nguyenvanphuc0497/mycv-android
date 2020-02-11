@@ -22,7 +22,7 @@ jobs:
         run: ./gradlew :app:check
 
       - name: Run Dectkt
-        run: ./gradlew dectkt
+        run: ./gradlew detekt
 
 #      - name: Report warring to git hub
 #        run: |
