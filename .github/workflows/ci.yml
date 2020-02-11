@@ -18,8 +18,10 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Check
+      - name: Check app
         run: ./gradlew :app:check
 
-      - name: Report
-        run: scripts/saddler.sh
+      - name: Report warring to git hub
+        run: |
+          sh -c "sudo chmod -R 777 scripts/saddler.sh"
+          scripts/saddler.sh
