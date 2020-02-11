@@ -21,7 +21,12 @@ jobs:
       - name: Check app
         run: ./gradlew :app:check
 
-      - name: Report warring to git hub
-        run: |
-          sh -c "sudo chmod -R 777 scripts/saddler.sh"
-          scripts/saddler.sh
+      - name: Run Dectkt
+        run: ./gradlew dectkt
+
+#      - name: Report warring to git hub
+#        run: |
+#          echo Set Permission
+#          sh -c "sudo chmod -R 777 scripts/saddler.sh"
+#          echo run scripts
+#          scripts/saddler.sh
