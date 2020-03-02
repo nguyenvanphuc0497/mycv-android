@@ -3,7 +3,11 @@ package vanphuc0497.job.mycv
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
+
 class MainActivity : AppCompatActivity() {
+
+    // incorrect
+    private val myConstant = "myConstant"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
