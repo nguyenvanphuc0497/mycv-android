@@ -20,6 +20,9 @@ repositories {
 }
 
 android {
+
+    def APP_NAME = "Your CV"
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -34,6 +37,29 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    applicationVariants.all { variant ->
+        switch (variant.getName()) {
+            case "release":
+                variant.resValue("string", "file_provider", "${variant.applicationId}.fileprovider")
+                variant.resValue("string", "app_name", "${APP_NAME}")
+                variant.buildConfigField "String", "BASE_API_URL", '"https://example.com"'
+                variant.buildConfigField "String", "BASE_API_URL_24H_RSS", '"https://24h.com.vn/upload/rss"'
+                break
+            case "debug":
+                variant.resValue("string", "file_provider", "${variant.applicationId}.fileprovider")
+                variant.resValue("string", "app_name", "[DEV]${APP_NAME}")
+                variant.buildConfigField "String", "BASE_API_URL", '"https://example.com"'
+                variant.buildConfigField "String", "BASE_API_URL_24H_RSS", '"https://24h.com.vn/upload/rss"'
         }
     }
 
@@ -60,6 +86,11 @@ dependencies {
 
     // Add the Firebase Crashlytics dependency.
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    // retrofit 2
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'
