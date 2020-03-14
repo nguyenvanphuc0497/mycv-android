@@ -1,4 +1,4 @@
-package vanphuc0497.job.mycv.data.source
+package vanphuc0497.job.mycv.data.network
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -26,9 +26,9 @@ class ApiClient private constructor(url: String? = null) {
     }
 
     internal val service: ApiService
-        get() = createService()
+        get() = createService(ApiService::class.java)
 
-    private fun createService(): ApiService {
+    internal fun <T> createService(classService: Class<T>): T {
         val httpClientBuilder = OkHttpClient.Builder()
         /*Enable log for debug mode*/
         if (BuildConfig.DEBUG) {
@@ -60,7 +60,7 @@ class ApiClient private constructor(url: String? = null) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
             .build()
-        return retrofit.create(ApiService::class.java)
+        return retrofit.create(classService)
     }
 }
 

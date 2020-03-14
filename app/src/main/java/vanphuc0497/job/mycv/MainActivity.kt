@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel by lazy { MainActivityViewModel(this.application) }
+    private val viewModel by lazy { MainViewModel(this.application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
