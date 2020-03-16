@@ -58,8 +58,8 @@ android {
             case "debug":
                 variant.resValue("string", "file_provider", "${variant.applicationId}.fileprovider")
                 variant.resValue("string", "app_name", "[DEV]${APP_NAME}")
-                variant.buildConfigField "String", "BASE_API_URL", '"https://example.com"'
-                variant.buildConfigField "String", "BASE_API_URL_24H_RSS", '"https://24h.com.vn/upload/rss"'
+                variant.buildConfigField "String", "BASE_API_URL", '"https://demo-android-app-link.herokuapp.com"'
+                variant.buildConfigField "String", "BASE_API_URL_24H_RSS", '"https://24h.com.vn/upload/rss/"'
         }
     }
 
@@ -72,6 +72,11 @@ android {
 }
 
 dependencies {
+    def retrofit2Version = "2.4.0"
+    def okhttp3Version = "3.11.0"
+    def rxJava = "2.2.2"
+    def rxAndroid = "2.1.0"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -88,9 +93,16 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     // retrofit 2
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+
+    // Ok Http
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'
