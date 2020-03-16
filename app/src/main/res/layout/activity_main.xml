@@ -6,14 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/pbHorizontal"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/tvTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test Crash"
+        android:text="Test xml kotlin object"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tvTestJava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Xml java object"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

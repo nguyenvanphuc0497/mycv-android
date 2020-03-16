@@ -1,5 +1,6 @@
 package vanphuc0497.job.mycv.extension
 
+import android.view.View
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -10,3 +11,10 @@ import io.reactivex.schedulers.Schedulers
 internal fun <T> Single<T>.observeOnUiThread(): Single<T> =
     this.observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
+
+internal fun <T> Single<T>.subscribeLoadingProgressView(progressView: View?): Single<T> =
+    this.doOnSubscribe {
+        progressView?.showIfElseGone(true)
+    }.doFinally {
+        progressView?.showIfElseGone(false)
+    }
