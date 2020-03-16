@@ -94,7 +94,8 @@ dependencies {
 
     // retrofit 2
     implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2Version" // JSON Converter
+    implementation "com.squareup.retrofit2:converter-simplexml:$retrofit2Version" // XML Converter
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
 
     // RxJava

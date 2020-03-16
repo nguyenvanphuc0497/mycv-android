@@ -6,7 +6,7 @@ import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import vanphuc0497.job.mycv.BuildConfig
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -56,7 +56,7 @@ class ApiClient private constructor(url: String? = null) {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(SimpleXmlConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
             .build()

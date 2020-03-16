@@ -3,6 +3,7 @@ package vanphuc0497.job.mycv.data.source.new24h
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.http.GET
+import vanphuc0497.job.mycv.data.model.response.base.BaseRssResponse
 
 /**
  * Create by Nguyen Van Phuc on 3/14/20
@@ -11,7 +12,7 @@ import retrofit2.http.GET
  */
 interface Rss24HApiService {
     @GET("trangchu24h.rss")
-    fun getHomePage24H(): Single<ResponseBody>
+    fun getHomePage24H(): Single<BaseRssResponse>
 
     @GET("tintuctrongngay.rss")
     fun getNewsOfTheDay24H(): Single<ResponseBody>
