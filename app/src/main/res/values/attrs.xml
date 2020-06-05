@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomPinEntryEditText">
+        <attr name="colorBackGroundPinError" format="color" />
+        <attr name="colorBackgroundPin" format="color" />
+        <attr name="colorStroke" format="color" />
+        <attr name="colorCursor" format="color" />
+        <attr name="radiusBackground" format="dimension" />
+        <attr name="spacePin" format="dimension" />
+        <attr name="markPassword" format="string" />
+    </declare-styleable>
+</resources>
