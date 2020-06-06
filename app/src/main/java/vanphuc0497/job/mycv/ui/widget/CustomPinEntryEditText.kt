@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.AppCompatEditText
 import io.reactivex.Observable
@@ -20,7 +21,7 @@ class CustomPinEntryEditText : AppCompatEditText {
         private const val DELAY = 700L // 0.7 second
         private const val OFFSET_BOTTOM_TEXT = 2F
         private const val DEFAULT_WIDTH_CURSOR = 2F
-        private const val DEFAULT_WIDTH_STROKE = 1F
+        private const val DEFAULT_WIDTH_STROKE = 2F
         private const val DEFAULT_SPACE_PIN = 24F // space between the lines
         private const val DEFAULT_LENGTH = 4
         private const val DEFAULT_MARK_PASSWORD = "*"
@@ -74,6 +75,9 @@ class CustomPinEntryEditText : AppCompatEditText {
         mTextWidths = FloatArray(mMaxLength)
         getAttrs(attrs)
 
+        mLineStroke *= multi;
+        mLinesPaint.strokeWidth = mLineStroke;
+
         //Disable copy paste
         super.setCustomSelectionActionModeCallback(object : ActionMode.Callback {
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
@@ -119,11 +123,6 @@ class CustomPinEntryEditText : AppCompatEditText {
         var startX = paddingLeft
         val bottom = height - paddingBottom
 
-        var textDraw = text ?: ""
-//        text?.forEach { _ ->
-//            textDraw += mMarkPassword
-//        }
-        paint.getTextWidths(textDraw, 0, textDraw.length, mTextWidths)
 
         //Set position cursor
         mRectCursor.let {
@@ -133,35 +132,10 @@ class CustomPinEntryEditText : AppCompatEditText {
             it.bottom = height.toFloat() - paddingBottom
         }
 
-        for (i in 0..mNumChars.toInt()) {
-            drawBackground(canvas, startX.toFloat())
+        canvas.drawPinLine(startX)
+        canvas.drawPinText(startX)
 
-            // Draw text
-            if ((text?.length ?: 0) > i) {
-                val middle = startX + mCharSize / 2
-                paint.run {
-                    color = currentTextColor
-                    strokeWidth = 0F
-                    canvas.drawText(
-                        textDraw, i, i + 1, middle - mTextWidths[0] / 2,
-                        bottom.toFloat() - mOffsetBottomText,
-                        this
-                    )
-                }
-                //Reset position cursor
-                mRectCursor.let {
-                    it.left = startX + mCharSize + mSpacePin + (mCharSize / 2)
-                    it.right = it.left + mWidthCursor
-                }
-            }
 
-            // Calculator startX of next text
-            startX += if (mSpacePin < 0) {
-                (mCharSize * 2).toInt()
-            } else {
-                (mCharSize + mSpacePin).toInt()
-            }
-        }
 
         if (isShowCursor) {
             if (isCursorBlink) {
@@ -170,7 +144,7 @@ class CustomPinEntryEditText : AppCompatEditText {
                 paint.color = mColorCursor
             }
             isCursorBlink = !isCursorBlink
-            canvas.drawRect(mRectCursor, paint)
+//            canvas.drawRect(mRectCursor, paint)
         }
     }
 
@@ -229,38 +203,6 @@ class CustomPinEntryEditText : AppCompatEditText {
         }
     }
 
-    private fun drawBackground(canvas: Canvas, startX: Float) {
-        val rectBackground = RectF(startX, 0F, startX + mCharSize, height.toFloat())
-        if (isErrorPassword) {
-            // Draw Background error
-            paint.run {
-                color = mColorBackGroundPinError
-                style = Paint.Style.FILL_AND_STROKE
-                canvas.drawRoundRect(rectBackground, mRadiusBackGround, mRadiusBackGround, this)
-            }
-        } else {
-            // Draw stroke
-            paint.run {
-                color = mColorStroke
-                strokeWidth = mWidthStroke
-                style = Paint.Style.STROKE
-                canvas.drawRoundRect(rectBackground, mRadiusBackGround, mRadiusBackGround, this)
-            }
-            // Draw Background
-            val rectFill = RectF(
-                startX + mWidthStroke,
-                0F + mWidthStroke,
-                startX + mCharSize - mWidthStroke,
-                height - mWidthStroke
-            )
-            paint.run {
-                color = mColorBackGroundPin
-                style = Paint.Style.FILL
-                canvas.drawRoundRect(rectFill, mRadiusBackGround, mRadiusBackGround, this)
-            }
-        }
-    }
-
     @SuppressLint("CheckResult")
     private fun startBlinkCursor() {
         if (!isShowCursor) {
@@ -277,4 +219,81 @@ class CustomPinEntryEditText : AppCompatEditText {
     private fun stopBlinkCursor() {
         isShowCursor = false
     }
+
+    private val mLinesPaint = Paint()
+    private var mLineStroke = 3f //1dp by default
+
+//    private val mColorStates = object : ColorStateList(
+//        arrayOf(
+//            intArrayOf(), intArrayOf(android.R.attr.state_selected),
+//            intArrayOf(), intArrayOf(android.R.attr.state_focused),
+//            intArrayOf(), intArrayOf(-android.R.attr.state_focused)
+//        ), intArrayOf(
+//            Color.GREEN,
+//            Color.BLACK,
+//            Color.GRAY
+//        )
+//    )
+//
+//    private fun getColorForState(vararg states: Int): Int {
+//        return mColorStates.getColorForState(states, Color.GRAY)
+//    }
+
+    private fun Paint.updateColorForLines(next: Boolean) {
+        color = when {
+            isFocused && next -> Color.RED
+            else -> currentTextColor
+        }
+    }
+
+    private fun Canvas.drawPinLine(firstStartX: Int) {
+        var startX = firstStartX.toFloat()
+        for (i in 0..mMaxLength) {
+
+            mLinesPaint.run {
+                updateColorForLines(i == text?.length ?: 0)
+                this@drawPinLine.drawLine(
+                    startX.toFloat(),
+                    bottom.toFloat(),
+                    startX + mCharSize,
+                    bottom.toFloat(),
+                    this
+                )
+            }
+            Log.e("drawLine", " s: $startX, stop: ${startX + mCharSize}")
+            startX = getStartXOfNextText(startX)
+        }
+    }
+
+    private fun Canvas.drawPinText(firstStartX: Int) {
+        var startX = firstStartX.toFloat()
+        val textDraw = text ?: ""
+        val textWidths = FloatArray(mMaxLength)
+        paint.getTextWidths(textDraw, 0, textDraw.length, textWidths)
+        Log.e("xxx", " mTextWidths: ${textWidths.contentToString()}")
+        for (i in 0..mNumChars.toInt()) {
+            if ((text?.length ?: 0) > i) {
+                val middle = startX + mCharSize / 2
+                paint.run {
+                    color = currentTextColor
+                    strokeWidth = 0F
+                    this@drawPinText.drawText(
+                        textDraw, i, i + 1, middle - textWidths[i] / 2,
+                        bottom.toFloat() - mOffsetBottomText,
+                        this
+                    )
+                }
+            }
+
+            // Calculator startX of next text
+            startX = getStartXOfNextText(startX)
+        }
+    }
+
+    private fun getStartXOfNextText(currentStartX: Float): Float = if (mSpacePin < 0) {
+        currentStartX + (mCharSize * 2).toInt()
+    } else {
+        currentStartX + (mCharSize + mSpacePin).toInt()
+    }
+
 }
