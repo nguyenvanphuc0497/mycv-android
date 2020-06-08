@@ -9,15 +9,13 @@
     <vanphuc0497.job.mycv.ui.widget.CustomPinEntryEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:cursorVisible="false"
-        android:gravity="center"
+        android:layout_marginHorizontal="52dp"
         android:maxLength="6"
-        android:textSize="40dp"
+        android:textSize="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spacePin="40dp"
-        tools:text="1237" />
+        app:spacePin="16dp"
+        tools:text="12378" />
 
     <vanphuc0497.job.mycv.ui.widget.CustomPinEntryEditText
         android:layout_width="match_parent"
