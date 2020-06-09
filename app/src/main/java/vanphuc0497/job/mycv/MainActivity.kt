@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import vanphuc0497.job.mycv.extension.subscribeLoadingProgressView
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,9 +18,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+
     }
 
     private fun initEvents() {
-
+        edtPin?.setOnPinFullCallBack{
+            Log.e("xxx","Full Roi:$it")
+        }
     }
 }

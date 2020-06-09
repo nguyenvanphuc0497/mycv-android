@@ -3,6 +3,8 @@ package vanphuc0497.job.mycv.ui.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.ActionMode
 import android.view.Menu
@@ -33,21 +35,68 @@ class CustomPinEntryEditText : AppCompatEditText {
         Paint()
     }
     private var mClickListener: OnClickListener? = null
+    private var onPinFull: (isPinFull: Boolean) -> Unit = {}
 
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context, attrs)
+        init(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context, attrs,
         defStyleAttr
     ) {
-        init(context, attrs)
+        init(attrs)
     }
 
-    private fun init(context: Context, attrs: AttributeSet) {
+    override fun setOnClickListener(l: OnClickListener?) {
+        mClickListener = l
+    }
+
+    /**
+     * When double tapped on some device, move cursor to end of text.
+     * Some device: Android 10, Xiaomi
+     */
+    override fun onSelectionChanged(selStart: Int, selEnd: Int) {
+        if (selStart != selEnd) {
+            setSelection(text?.length ?: 0)
+        }
+    }
+
+    override fun setCustomSelectionActionModeCallback(actionModeCallback: ActionMode.Callback) {
+        throw RuntimeException("setCustomSelectionActionModeCallback() not supported.")
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        val availableWidth = width * 1F - paddingRight - paddingLeft
+        mCharSize = if (mSpacePin < 0) {
+            availableWidth / (mMaxLength * 2 - 1)
+        } else {
+            (availableWidth - mSpacePin - mSpacePin * (mMaxLength - 1)) / mMaxLength
+        }
+        val startX = paddingLeft
+        canvas.drawPinLine(startX)
+        canvas.drawPinText(startX)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            performClick()
+        }
+        return super.onTouchEvent(event)
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
+    }
+
+    /**
+     * Function
+     */
+
+    private fun init(attrs: AttributeSet) {
         setBackgroundResource(0) //Clear line default for EditText
         getAttrs(attrs)
         /**
@@ -90,48 +139,15 @@ class CustomPinEntryEditText : AppCompatEditText {
                 mClickListener?.onClick(v)
             }
         }
-    }
+        super.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
 
-    override fun setOnClickListener(l: OnClickListener?) {
-        mClickListener = l
-    }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    /**
-     * When double tapped on some device, move cursor to end of text.
-     * @s
-     */
-    override fun onSelectionChanged(selStart: Int, selEnd: Int) {
-        if (selStart != selEnd) {
-            setSelection(text?.length ?: 0)
-        }
-    }
-
-    override fun setCustomSelectionActionModeCallback(actionModeCallback: ActionMode.Callback) {
-        throw RuntimeException("setCustomSelectionActionModeCallback() not supported.")
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        val availableWidth = width * 1F - paddingRight - paddingLeft
-        mCharSize = if (mSpacePin < 0) {
-            availableWidth / (mMaxLength * 2 - 1)
-        } else {
-            (availableWidth - mSpacePin - mSpacePin * (mMaxLength - 1)) / mMaxLength
-        }
-        val startX = paddingLeft
-        canvas.drawPinLine(startX)
-        canvas.drawPinText(startX)
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (event?.action == MotionEvent.ACTION_DOWN) {
-            performClick()
-        }
-        return super.onTouchEvent(event)
-    }
-
-    override fun performClick(): Boolean {
-        super.performClick()
-        return true
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                onPinFull(text?.length ?: 0 == mMaxLength)
+            }
+        })
     }
 
     private fun getAttrs(attrs: AttributeSet) {
@@ -207,4 +223,8 @@ class CustomPinEntryEditText : AppCompatEditText {
                 currentStartX + (mCharSize + mSpacePin).toInt()
             }
         }
+
+    internal fun setOnPinFullCallBack(callback: (isPinFull: Boolean) -> Unit = {}) {
+        onPinFull = callback
+    }
 }
