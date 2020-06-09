@@ -6,33 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ProgressBar
-        android:id="@+id/pbHorizontal"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <vanphuc0497.job.mycv.ui.widget.CustomPinEntryEditText
+        android:id="@+id/edtPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="52dp"
+        android:maxLength="6"
+        android:textSize="36dp"
+        app:colorPinLine="@color/colorWhiteGray"
+        app:colorPinLineHighLight="@color/colorLightBlue"
+        app:heightPinLine="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:paddingPinBottom="23dp"
+        app:spacePinLine="16dp"
+        tools:text="12378" />
 
-    <Button
-        android:id="@+id/tvTest"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edtTest"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test xml kotlin object"
+        android:layout_marginHorizontal="8dp"
+        android:contextClickable="false"
+        android:cursorVisible="false"
+        android:longClickable="false"
+        android:textIsSelectable="true"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/tvTestJava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test Xml java object"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTest" />
-
+        tools:text="1237" />
 </androidx.constraintlayout.widget.ConstraintLayout>
