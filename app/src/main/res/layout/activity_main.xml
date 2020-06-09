@@ -12,20 +12,22 @@
         android:layout_marginHorizontal="52dp"
         android:maxLength="6"
         android:textSize="36dp"
+        app:colorLinePin="@color/colorWhiteGray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spacePin="16dp"
         tools:text="12378" />
 
-    <vanphuc0497.job.mycv.ui.widget.CustomPinEntryEditText
+    <EditText
+        android:id="@+id/edtTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
+        android:contextClickable="false"
         android:cursorVisible="false"
-        android:gravity="center"
-        android:maxLength="4"
+        android:longClickable="false"
+        android:textIsSelectable="true"
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:spacePin="40dp"
         tools:text="1237" />
 </androidx.constraintlayout.widget.ConstraintLayout>

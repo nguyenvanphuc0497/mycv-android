@@ -10,9 +10,7 @@ import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.res.ResourcesCompat
 import vanphuc0497.job.mycv.R
-
 
 /**
  * Create by Nguyen Van Phuc on 6/5/20
@@ -39,6 +37,8 @@ class CustomPinEntryEditText : AppCompatEditText {
     }
     private var mLineStroke = 3f
     private var mClickListener: OnClickListener? = null
+    private var mColorLinePinHighLight = 0
+    private var mColorLinePin = 0
 
     constructor(context: Context) : super(context)
 
@@ -66,8 +66,9 @@ class CustomPinEntryEditText : AppCompatEditText {
         paint.color = currentTextColor
         maxLines = 1
         isSingleLine = true
-        super.setTextIsSelectable(false)
+        setTextIsSelectable(false)
         inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD
+        isLongClickable = false
 
         /**
          * Disable copy paste
@@ -100,6 +101,16 @@ class CustomPinEntryEditText : AppCompatEditText {
 
     override fun setOnClickListener(l: OnClickListener?) {
         mClickListener = l
+    }
+
+    /**
+     * When double tapped on some device, move cursor to end of text.
+     * @s
+     */
+    override fun onSelectionChanged(selStart: Int, selEnd: Int) {
+        if (selStart != selEnd) {
+            setSelection(text?.length ?: 0)
+        }
     }
 
     override fun setCustomSelectionActionModeCallback(actionModeCallback: ActionMode.Callback) {
@@ -135,6 +146,9 @@ class CustomPinEntryEditText : AppCompatEditText {
             attrs.getAttributeIntValue(XML_NAMESPACE_ANDROID, "maxLength", DEFAULT_LENGTH)
         context.obtainStyledAttributes(attrs, R.styleable.CustomPinEntryEditText).run {
             mSpacePin = getDimension(R.styleable.CustomPinEntryEditText_spacePin, 0F)
+            mColorLinePinHighLight =
+                getColor(R.styleable.CustomPinEntryEditText_colorLinePinHighLight, 0)
+            mColorLinePin = getColor(R.styleable.CustomPinEntryEditText_colorLinePin, 0)
             recycle()
         }
     }
@@ -150,12 +164,8 @@ class CustomPinEntryEditText : AppCompatEditText {
 
     private fun Paint.updateColorForLines(isPinNext: Boolean) {
         color = when {
-            isFocused && isPinNext -> ResourcesCompat.getColor(
-                resources,
-                R.color.colorLightBlue,
-                null
-            )
-            else -> ResourcesCompat.getColor(resources, R.color.colorWhiteGray, null)
+            isFocused && isPinNext -> mColorLinePinHighLight
+            else -> mColorLinePin
         }
     }
 

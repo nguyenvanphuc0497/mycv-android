@@ -2,5 +2,7 @@
 <resources>
     <declare-styleable name="CustomPinEntryEditText">
         <attr name="spacePin" format="dimension" />
+        <attr name="colorLinePinHighLight" format="color" />
+        <attr name="colorLinePin" format="color" />
     </declare-styleable>
 </resources>
