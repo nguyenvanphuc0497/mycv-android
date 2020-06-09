@@ -12,10 +12,13 @@
         android:layout_marginHorizontal="52dp"
         android:maxLength="6"
         android:textSize="36dp"
-        app:colorLinePin="@color/colorWhiteGray"
+        app:colorPinLine="@color/colorWhiteGray"
+        app:colorPinLineHighLight="@color/colorLightBlue"
+        app:heightPinLine="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spacePin="16dp"
+        app:paddingPinBottom="23dp"
+        app:spacePinLine="16dp"
         tools:text="12378" />
 
     <EditText

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomPinEntryEditText">
-        <attr name="spacePin" format="dimension" />
-        <attr name="colorLinePinHighLight" format="color" />
-        <attr name="colorLinePin" format="color" />
+        <attr name="spacePinLine" format="dimension" />
+        <attr name="colorPinLineHighLight" format="color" />
+        <attr name="colorPinLine" format="color" />
+        <attr name="heightPinLine" format="dimension" />
+        <attr name="paddingPinBottom" format="dimension" />
     </declare-styleable>
 </resources>

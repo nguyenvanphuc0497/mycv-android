@@ -18,27 +18,21 @@ import vanphuc0497.job.mycv.R
 class CustomPinEntryEditText : AppCompatEditText {
     companion object {
         private const val XML_NAMESPACE_ANDROID = "http://schemas.android.com/apk/res/android"
-        private const val OFFSET_BOTTOM_TEXT = 13F
-        private const val DEFAULT_WIDTH_CURSOR = 2F
-        private const val DEFAULT_WIDTH_STROKE = 2F
-        private const val DEFAULT_SPACE_PIN = 24F // space between the lines
         private const val DEFAULT_LENGTH = 4
     }
 
     private lateinit var mTextWidths: FloatArray
     private var mCharSize = 0f
+    private var mOffsetBottomText = 0F
+    private var mSpacePin = 0F
+    private var mLineStrokeHeight = 0F
+    private var mColorLinePinHighLight = 0
+    private var mColorLinePin = 0
     private var mMaxLength = DEFAULT_LENGTH
-    private var mOffsetBottomText = OFFSET_BOTTOM_TEXT
-    private var mWidthCursor = DEFAULT_WIDTH_CURSOR
-    private var mWidthStroke = DEFAULT_WIDTH_STROKE
-    private var mSpacePin = DEFAULT_SPACE_PIN
     private val mLinesPaint by lazy {
         Paint()
     }
-    private var mLineStroke = 3f
     private var mClickListener: OnClickListener? = null
-    private var mColorLinePinHighLight = 0
-    private var mColorLinePin = 0
 
     constructor(context: Context) : super(context)
 
@@ -55,14 +49,13 @@ class CustomPinEntryEditText : AppCompatEditText {
 
     private fun init(context: Context, attrs: AttributeSet) {
         setBackgroundResource(0) //Clear line default for EditText
-        convertNumberToPixels(context)
         getAttrs(attrs)
         /**
          * Hard code follow spec of project, you can custom if need.
          */
         isCursorVisible = false
         mTextWidths = FloatArray(mMaxLength)
-        mLinesPaint.strokeWidth = mLineStroke
+        mLinesPaint.strokeWidth = mLineStrokeHeight
         paint.color = currentTextColor
         maxLines = 1
         isSingleLine = true
@@ -144,22 +137,16 @@ class CustomPinEntryEditText : AppCompatEditText {
     private fun getAttrs(attrs: AttributeSet) {
         mMaxLength =
             attrs.getAttributeIntValue(XML_NAMESPACE_ANDROID, "maxLength", DEFAULT_LENGTH)
-        context.obtainStyledAttributes(attrs, R.styleable.CustomPinEntryEditText).run {
-            mSpacePin = getDimension(R.styleable.CustomPinEntryEditText_spacePin, 0F)
+        context.obtainStyledAttributes(attrs, R.styleable.CustomPinEntryEditText).apply {
+            mSpacePin = getDimension(R.styleable.CustomPinEntryEditText_spacePinLine, 0F)
             mColorLinePinHighLight =
-                getColor(R.styleable.CustomPinEntryEditText_colorLinePinHighLight, 0)
-            mColorLinePin = getColor(R.styleable.CustomPinEntryEditText_colorLinePin, 0)
-            recycle()
-        }
-    }
-
-    private fun convertNumberToPixels(context: Context) {
-        val multi = context.resources.displayMetrics.density
-        mSpacePin *= multi
-        mWidthStroke *= multi
-        mOffsetBottomText *= multi
-        mWidthCursor *= multi
-        mLineStroke *= multi
+                getColor(R.styleable.CustomPinEntryEditText_colorPinLineHighLight, 0)
+            mColorLinePin = getColor(R.styleable.CustomPinEntryEditText_colorPinLine, 0)
+            mLineStrokeHeight =
+                getDimension(R.styleable.CustomPinEntryEditText_heightPinLine, 0F)
+            mOffsetBottomText =
+                getDimension(R.styleable.CustomPinEntryEditText_paddingPinBottom, 0F)
+        }.recycle()
     }
 
     private fun Paint.updateColorForLines(isPinNext: Boolean) {
@@ -207,6 +194,9 @@ class CustomPinEntryEditText : AppCompatEditText {
         }
     }
 
+    /**
+     * Calculate space of pin box, current follow with spec of project.
+     */
     private fun getStartXOfNextPin(indexPin: Int, currentStartX: Float): Float =
         if (mSpacePin < 0) {
             currentStartX + (mCharSize * 2).toInt()
