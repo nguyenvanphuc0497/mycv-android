@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomZXingScannerView">
+        <attr name="paddingTopFinder" format="dimension" />
+        <attr name="paddingBottomFinder" format="dimension" />
+        <attr name="paddingLeftFinder" format="dimension" />
+        <attr name="paddingRightFinder" format="dimension" />
+        <attr name="paddingHorizontalFinder" format="dimension" />
+        <attr name="borderColor" format="color" />
+        <attr name="maskColor" format="color" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderLength" format="dimension" />
+    </declare-styleable>
+</resources>

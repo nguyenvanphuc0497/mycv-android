@@ -108,8 +108,8 @@ dependencies {
     // Qr Code Scanner
     implementation "me.dm7.barcodescanner:zxing:1.9.13"
 
-    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
-    implementation 'com.google.zxing:core:3.3.3'
+//    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+//    implementation 'com.google.zxing:core:3.3.3'
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'

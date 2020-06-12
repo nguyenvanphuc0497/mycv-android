@@ -1,7 +1,6 @@
 package vanphuc0497.job.mycv.ui.widget
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Rect
 import me.dm7.barcodescanner.core.ViewFinderView
 
@@ -9,17 +8,30 @@ import me.dm7.barcodescanner.core.ViewFinderView
  * Create by Nguyen Van Phuc on 2019-05-20
  */
 class CustomZXingViewFinderView(content: Context) : ViewFinderView(content) {
-    internal var onCanvasDrawSuccess: (frameBottom: Int) -> Unit = {}
+    private val rectFraming = Rect()
 
-    override fun drawViewFinderMask(canvas: Canvas?) {
-        super.drawViewFinderMask(canvas)
-        onCanvasDrawSuccess(framingRect.bottom)
+    override fun getFramingRect(): Rect = Rect(
+        rectFraming.left,
+        rectFraming.top,
+        width - rectFraming.right,
+        height - rectFraming.bottom
+    ).apply {
+        if (true) {
+            if (height() < width()) {
+                val offsetCenter = (width - rectFraming.right) / 2
+                right = bottom
+                left += offsetCenter
+                right += offsetCenter
+            } else {
+                val offsetCenter = (height - rectFraming.bottom) / 2
+                bottom = right
+                top += offsetCenter
+                bottom += offsetCenter
+            }
+        }
     }
 
-    override fun getFramingRect(): Rect = Rect(super.getFramingRect()).apply {
-        top -= 300
-        bottom += 200
-        left -= 100
-        right += 100
+    internal fun setRectFraming(left: Int, top: Int, right: Int, bottom: Int) {
+        rectFraming.set(left, top, right, bottom)
     }
 }
