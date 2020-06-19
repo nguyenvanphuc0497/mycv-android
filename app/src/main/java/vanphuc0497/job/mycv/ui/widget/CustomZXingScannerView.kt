@@ -61,6 +61,7 @@ class CustomZXingScannerView : ZXingScannerView {
                     ).toInt()
                 )
                 setBorderColor(getColor(R.styleable.CustomZXingScannerView_borderColor, 0))
+                setSquareViewFinder(getBoolean(R.styleable.BarcodeScannerView_squaredFinder, false))
             }
         }.recycle()
     }

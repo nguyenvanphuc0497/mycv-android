@@ -28,6 +28,7 @@
         app:paddingBottomFinder="70dp"
         app:paddingHorizontalFinder="60dp"
         app:paddingTopFinder="70dp"
+        app:squaredFinder="true"
         tools:background="@color/colorBlackOpacity50" />
 
     <TextView

@@ -10,25 +10,29 @@ import me.dm7.barcodescanner.core.ViewFinderView
 class CustomZXingViewFinderView(content: Context) : ViewFinderView(content) {
     private val rectFraming = Rect()
 
-    override fun getFramingRect(): Rect = Rect(
-        rectFraming.left,
-        rectFraming.top,
-        width - rectFraming.right,
-        height - rectFraming.bottom
-    ).apply {
-        if (true) {
-            if (height() < width()) {
-                val offsetCenter = (width - rectFraming.right) / 2
-                right = bottom
-                left += offsetCenter
-                right += offsetCenter
-            } else {
-                val offsetCenter = (height - rectFraming.bottom) / 2
-                bottom = right
-                top += offsetCenter
-                bottom += offsetCenter
+    override fun getFramingRect(): Rect {
+        val frameFinder = Rect(
+            rectFraming.left,
+            rectFraming.top,
+            width - rectFraming.right,
+            height - rectFraming.bottom
+        )
+        if (mSquareViewFinder) {
+            frameFinder.run {
+                if (height() > width()) {
+                    val heightOffset = height / 2
+                    val newHeightOffset = width() / 2
+                    top = heightOffset - newHeightOffset
+                    bottom = heightOffset + newHeightOffset
+                } else {
+                    val widthOffset = width / 2
+                    val newWidthOffset = height() / 2
+                    left = widthOffset - newWidthOffset
+                    right = widthOffset + newWidthOffset
+                }
             }
         }
+        return frameFinder
     }
 
     internal fun setRectFraming(left: Int, top: Int, right: Int, bottom: Int) {
