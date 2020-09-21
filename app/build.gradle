@@ -69,6 +69,11 @@ android {
         abortOnError false
         warningsAsErrors true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -104,6 +109,9 @@ dependencies {
 
     // Ok Http
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+
+    //Unzip
+    implementation "net.lingala.zip4j:zip4j:2.6.1"
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'
