@@ -9,6 +9,9 @@ apply plugin: 'com.google.gms.google-services'
 // Add the Fabric plugin.
 apply plugin: 'io.fabric'
 
+// Apply the App Distribution Gradle plugin
+apply plugin: 'com.google.firebase.appdistribution'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -21,7 +24,7 @@ repositories {
 
 android {
 
-    def APP_NAME = "Your CV"
+    def APP_NAME = "Research & Deploy"
 
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -44,6 +47,12 @@ android {
             applicationIdSuffix ".debug"
 
             signingConfig signingConfigs.debug
+
+            firebaseAppDistribution {
+                serviceCredentialsFile="$rootDir/app/firebase_distribution/distribution-authen.json"
+                releaseNotesFile="$rootDir/app/firebase_distribution/release-notes.txt"
+                testersFile="$rootDir/app/firebase_distribution/testers-config.txt"
+            }
         }
     }
 

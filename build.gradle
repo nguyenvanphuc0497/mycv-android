@@ -19,6 +19,9 @@ buildscript {
 
         // Add the Fabric Crashlytics plugin.
         classpath 'io.fabric.tools:gradle:1.31.2'
+
+        // Add the App Distribution Gradle plugin
+        classpath 'com.google.firebase:firebase-appdistribution-gradle:2.0.1'
     }
 }
 
