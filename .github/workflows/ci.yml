@@ -26,6 +26,9 @@ jobs:
   generate-apk:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
       - name: Build APK debug
         run: ./gradlew --stacktrace :app:assembleDebug
 
