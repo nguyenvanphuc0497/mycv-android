@@ -1,6 +1,13 @@
 name: CI
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - 'master'
+      - 'develop'
+  push:
+    branches:
+      - 'master'
 
 jobs:
   build:
@@ -8,21 +15,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
+      - name: Build the app and check app
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      - name: Check app
-        run: ./gradlew :app:check
+          echo 1/2: Build the app
+          ./gradlew --stacktrace build
+          echo 2/2: Check the app
+          ./gradlew --stacktrace :app:check
 
       - name: Run Dectkt
-        run: ./gradlew detekt
+        run: ./gradlew --stacktrace detekt
+
+      - name: Build apk
+        run: ./gradlew --stacktrace :app:assembleDebug
 
 #      - name: Report warring to git hub
 #        run: |
