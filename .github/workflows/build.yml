@@ -22,9 +22,15 @@ jobs:
           ./gradlew --stacktrace build
           echo 2/2: Check the app
           ./gradlew --stacktrace :app:check
+      - name: Build APK debug
+        run: ./gradlew --stacktrace :app:assembleDebug
 
-      - name: Build APK debug and deploy to fire base distribution
-        run: ./gradlew --stacktrace appDistributionUploadDebug
+      - name: Upload APK debug on Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: APK app
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
 
   #  - name: Report warring to git hub
   #        run: |
@@ -32,18 +38,3 @@ jobs:
   #          sh -c "sudo chmod -R 777 scripts/saddler.sh"
   #          echo run scripts
   #          scripts/saddler.sh
-#  generate-apk:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout the code
-#        uses: actions/checkout@v2
-#
-#      - name: Build APK debug
-#        run: ./gradlew --stacktrace :app:assembleDebug
-
-#      - name: Upload APK debug on Build Artifacts
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: APK app
-#          path: app/build/outputs/apk/debug/app-debug.apk
-#          if-no-files-found: error
