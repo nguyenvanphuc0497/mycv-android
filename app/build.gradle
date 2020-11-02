@@ -32,6 +32,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -104,6 +105,10 @@ dependencies {
 
     // Ok Http
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'
