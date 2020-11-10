@@ -25,6 +25,9 @@ jobs:
       - name: Build APK debug
         run: ./gradlew --stacktrace :app:assembleDebug
 
+      - name: Run Danger
+        run: bundle exec danger
+
       - name: Upload APK debug on Build Artifacts
         uses: actions/upload-artifact@v2
         with:
