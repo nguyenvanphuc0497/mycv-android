@@ -38,5 +38,5 @@ task clean(type: Delete) {
 }
 
 task quicklyCheck() {
-    dependsOn 'app:checkstyle', 'app:pmd', 'app:cpd', 'app:lint', 'app:test'
+    dependsOn 'app:checkstyle', 'app:pmd', 'app:cpd', 'app:detekt', 'app:lint', 'app:test'
 }

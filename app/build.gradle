@@ -12,7 +12,7 @@ apply plugin: 'io.fabric'
 // Apply the App Distribution Gradle plugin
 apply plugin: 'com.google.firebase.appdistribution'
 
-apply from: "./script/ci.gradle"
+apply from: "./script/checkstyle.gradle"
 
 buildscript {
     repositories {
@@ -116,5 +116,3 @@ dependencies {
     // Ok Http
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
 }
-
-apply from: './code_quality_tools/checkstyle.gradle'

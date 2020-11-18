@@ -14,6 +14,12 @@ checkstyle_format.base_path = Dir.pwd
 # checkstyle
 checkstyle_format.report 'app/build/reports/checkstyle/checkstyle.xml'
 
+# Detekt - checkstyle
+kotlin_detekt.severity = "warning"
+kotlin_detekt.gradle_task = "detekt"
+kotlin_detekt.report_file = "app/build/reports/detekt/detekt-checkstyle.xml"
+kotlin_detekt.detekt(inline_mode: true)
+
 # PMD
 require 'pmd_translate_checkstyle_format'
 pmd_xml = ::PmdTranslateCheckstyleFormat::Script.translate(File.read('app/build/reports/pmd/pmd.xml'))
