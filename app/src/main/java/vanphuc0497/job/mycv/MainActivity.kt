@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initEvents() {
-        tvTest.setOnClickListener {
+        tvTest.setOnClickListener{
             viewModel.getHomePageFromServer()
                 .subscribeLoadingProgressView(pbHorizontal)
                 .subscribe({
