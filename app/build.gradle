@@ -12,6 +12,8 @@ apply plugin: 'io.fabric'
 // Apply the App Distribution Gradle plugin
 apply plugin: 'com.google.firebase.appdistribution'
 
+apply from: "./script/ci.gradle"
+
 buildscript {
     repositories {
         mavenCentral()
@@ -49,9 +51,9 @@ android {
             signingConfig signingConfigs.debug
 
             firebaseAppDistribution {
-                serviceCredentialsFile="$rootDir/app/firebase_distribution/distribution-authen.json"
-                releaseNotesFile="$rootDir/app/firebase_distribution/release-notes.txt"
-                testersFile="$rootDir/app/firebase_distribution/testers-config.txt"
+                serviceCredentialsFile = "$rootDir/app/firebase_distribution/distribution-authen.json"
+                releaseNotesFile = "$rootDir/app/firebase_distribution/release-notes.txt"
+                testersFile = "$rootDir/app/firebase_distribution/testers-config.txt"
             }
         }
     }

@@ -21,7 +21,7 @@ jobs:
           echo 1/2: Build the app
           ./gradlew --stacktrace build
           echo 2/2: Check the app
-          ./gradlew --stacktrace :app:check
+          ./gradlew --stacktrace quicklyCheck
       - name: Build APK debug
         run: ./gradlew --stacktrace :app:assembleDebug
 

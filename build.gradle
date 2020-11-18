@@ -36,3 +36,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task quicklyCheck() {
+    dependsOn 'app:checkstyle', 'app:pmd', 'app:cpd', 'app:lint', 'app:test'
+}
