@@ -33,10 +33,10 @@ jobs:
       - name: Install bundler
         run: |
           gem install bundler
-          bundle install
+          bundle install --path vendor/bundle
 
       - name: Run Danger
-        run: bundle exec danger
+        run: bundle exec danger --verbose
 
       - name: Upload APK debug on Build Artifacts
         uses: actions/upload-artifact@v2
