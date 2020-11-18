@@ -25,6 +25,14 @@ jobs:
       - name: Build APK debug
         run: ./gradlew --stacktrace :app:assembleDebug
 
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+
+      - name: Install bundler
+        run: gem install bundler
+
       - name: Run Danger
         run: bundle exec danger
 
