@@ -1,0 +1,87 @@
+/*
+ * for ci
+ */
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+
+check.dependsOn 'checkstyle', 'pmd', 'cpd', 'detekt'
+
+task checkstyle(type: Checkstyle) {
+    def conf = file('../config/checkstyle/checkstyle.xml')
+    configFile conf
+    source 'src'
+    include '**/*.java'
+    include '**/*.kt'
+    exclude '**/gen/**'
+
+    classpath = files()
+    ignoreFailures = true
+}
+
+task pmd(type: Pmd) {
+    ignoreFailures = true
+
+    def conf = file('../config/pmd/pmd-ruleset.xml')
+    ruleSetFiles = files(conf)
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    include '**/*.kt'
+    exclude '**/gen/**'
+    exclude '**/test/**'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        xml {
+            destination new File("$project.buildDir/reports/pmd/pmd.xml")
+        }
+        html {
+            destination new File("$project.buildDir/reports/pmd/pmd.html")
+        }
+    }
+}
+
+task 'cpd'
+cpd.doLast {
+    File outDir = new File("$project.buildDir/reports/pmd/")
+    outDir.mkdirs()
+    ant.taskdef(name: 'cpd',
+            classname: 'net.sourceforge.pmd.cpd.CPDTask',
+            classpath: configurations.pmd.asPath)
+    ant.cpd(minimumTokenCount: '100',
+            format: 'xml',
+            outputFile: new File(outDir, 'cpd.xml')) {
+        fileset(dir: "src/main/java") {
+            include(name: '**/*.java')
+        }
+    }
+}
+
+configurations {
+    detekt
+}
+
+dependencies {
+    detekt 'io.gitlab.arturbosch.detekt:detekt-cli:1.0.0.RC5-6'
+    detekt 'io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0.RC4-2'
+}
+
+task detekt(type: JavaExec) {
+    def conf
+    if (project.hasProperty('detektConfigFile')) {
+        conf = file(detektConfigFile)
+    } else {
+        conf = file('../config/checkstyle/detekt.yml')
+    }
+
+    main = "io.gitlab.arturbosch.detekt.cli.Main"
+    classpath = configurations.detekt
+    def input = "$rootDir"
+    def config = conf
+    def output = "$projectDir/build/reports/detekt/"
+    def filters = "(?i).*src/.*test.*/.*;.*Dummy.*"
+    def params = ['-i', input, '-c', config, '-f', filters, '-o', output]
+    args(params)
+}

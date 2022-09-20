@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+      - 'develop'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Build the app and check app
+        run: |
+          echo 1/2: Build the app
+          ./gradlew --stacktrace build
+          echo 2/2: Check the app
+          ./gradlew --stacktrace quicklyCheck
+      - name: Build APK debug
+        run: ./gradlew --stacktrace :app:assembleDebug
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+
+      - name: Install bundler
+        run: |
+          gem install bundler
+          bundle install --path vendor/bundle
+
+      - name: Run Danger
+        run: bundle exec danger --verbose
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+
+      - name: Upload APK debug on Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: APK app
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+  #  - name: Report warring to git hub
+  #        run: |
+  #          echo Set Permission
+  #          sh -c "sudo chmod -R 777 scripts/saddler.sh"
+  #          echo run scripts
+  #          scripts/saddler.sh

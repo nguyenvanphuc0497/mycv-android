@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "phuc-cv",
+  "private_key_id": "f44a24ba8048828dac35dc3bd2f94957eadf56d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCbVrwgQXKHFNhJ\nGQ1YzhxprBYBcp0zh63TV0+1wu1z2/paqjIVALWDtsi7378zjXvx23aColpjk2fp\nr+7p5rmsz7sZt9cFhLv60S9GpsJ6XT71qRcJkl7/pBkovWIYpummzbloMTmAS4fv\n/9i+iXLPwkLGE+o4x0rURykOduJ7bV4weBoh9094lEn+5GxWR+XbD4NqF1LTesTY\n0Iga6c86cvfmLM7eiF2cu6NFZTScbr3jw3iTwUlzVmGw9o+5KRGku2otfU9B4s5l\nlTcg6tWvnpCfo0K4fn1DXdbgUh6Bb+5HUXvoLudXX35TQjtj/1C2MK1h6G/KUk2A\nVUnKnkMBAgMBAAECggEAAJba511L3Iq4APO8PeyoUt+CHOd7BJTZMZkKNIGICaIi\nrOxaV24eKij9Mc7Xvo+02fxJ7WV1gI0uHL7NT3AdKY8HOI9ZV0V8tNx37zmQaVL8\nNfsiIxqgk1wguRjfZ+IY9tWO+dKTO2G5+GIS9819HjVgVV3s/oygE645DUjcG5v7\nWYNsNsGp077aPEfd8Y/wIoYwauVDMAdMnjG3wXY/ywYAb4nWMsbsqaYhqtpVoiBI\nBFD3u4E7e1iBw6vLmH7bIRuUNZ7HpLU6YVQA4SpQCNewIbG8MifCrtcw1YxOf+4d\nNGStEfuV55XjJHb/deqVFbdzOWXc9mqX1vinSl8C4QKBgQDPhGFp7wa8Vl91X+1j\nILIpyq4P9ffavpzWYOREiwBYZHYqHqwjkYZCxNPLgi3S+u0UhyBwtRRSVTmBk8bL\nQ+oXY7yDfHeMkDSEm2WV3Y4A3zZlrsPIt9O532blPbRpI4I+m4IDckaWTJYDjm0q\n79YpxlP0Zrjmflc7Rqn0cKNooQKBgQC/oZCSLKbi1iqYkVg4L/1hvwWkUgLJogD5\nGs6daXxq39ozWK3JOj1iwC1HmSsEhqPDSGxc/QNd/IT/mB8Xrsbo3z+ul7hLFBB4\nWPwMeqwd4aaLk1xKlojBonTLsp/j6Q6+pd99chFoAJCW7VF6YyXWJrC1v44c1hCf\n1w94jPjeYQKBgDcOvHnKvVLC59jQdr9SMXL9H2mErRoQcLRASNAWwSSyotdSBAH7\n3k9gwYDBLT9I7BYCNA0zPg0KJ5PFjXzoq/dAswd/wog8ynJUeINmoQKCNoCL+c4L\nV9V8/GPeFzu9/BR4VepsK2Y9M6AF7djygTPcNvIlPvGIm8RSX01HhVOBAoGBAINv\nNw9rHNO8fN7D4bQ4BhxCvoXj0hGl0fEJV+lTboiHHMvW6Ot5zJysnuHaxkyGZFAO\nnnRw/Rw7lKUSG1FNCRSz+qOvYDHugxVoQwf0I5UjLe3Rlp15/jaBTIZh75SMRxaw\nAkeyMwoYSRObliTRWCQ3yT//MGPK1wAqq2vNlOxBAoGATnVHuUkkMaF4gPd0Y0Xc\nBDA8rRLiaVsdc90fwSOxXZOP5sPK7yOliNo1wMn/PWIXxp2zdY5TCXahHyCP9h3v\n0vSyUAWcOlgfQqWiImhZm6DtvJgf+EIFIm6b+GE/jegx9leuDBkIpIzIZGHLm7tC\n5XaajeKT/l8Zp5XuBSIWHBE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebasedistribution@phuc-cv.iam.gserviceaccount.com",
+  "client_id": "109683593626692281335",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebasedistribution%40phuc-cv.iam.gserviceaccount.com"
+}

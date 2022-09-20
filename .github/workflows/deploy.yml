@@ -1,0 +1,19 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+  label:
+    types: [deploy]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Build APK debug and deploy to fire base distribution
+        run: ./gradlew --stacktrace appDistributionUploadDebug
