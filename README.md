@@ -1,6 +1,6 @@
 # Android Research and Develop
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.61-blue.svg)](https://kotlinlang.org)
-[![Gradle](https://img.shields.io/badge/Gradle-4-blue?style=flat)](https://gradle.org)
+[![Gradle](https://img.shields.io/badge/Gradle-5-blue?style=flat)](https://gradle.org)
 
 ## Project characteristics and tech-stack
 
