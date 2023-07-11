@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
 // Add the Fabric plugin.
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 buildscript {
     repositories {
@@ -111,3 +111,4 @@ dependencies {
 }
 
 apply from: './code_quality_tools/checkstyle.gradle'
+
